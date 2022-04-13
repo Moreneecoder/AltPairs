@@ -14,8 +14,8 @@
   <tbody>
     <% @pairs.each do |pair| %>
       <tr>
-        <td><%= pair.user.firstname %></td>
-        <td><%= pair.partner.firstname %></td>
+        <td><%= pair.user.firstname %> <%= pair.user.lastname %></td>
+        <td><%= pair.partner.firstname %> <%= pair.partner.lastname %></td>
         <td><%= link_to 'Show', pair %></td>
         <td><%= link_to 'Edit', edit_pair_path(pair) %></td>
         <td><%= link_to 'Destroy', pair, method: :delete, data: { confirm: 'Are you sure?' } %></td>

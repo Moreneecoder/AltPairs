@@ -69,7 +69,7 @@ class PairsController < ApplicationController
         Pair.create!(user_id: user.id, partner_id: partner.id)
 
         user.update!(paired: true)
-        partner.update!(paired: tue)
+        partner.update!(paired: true)
       end
 
       unpaired_user_ids.shift
