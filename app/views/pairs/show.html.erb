@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pair.user_id %>
+</p>
+
+<p>
+  <strong>Partner:</strong>
+  <%= @pair.partner_id %>
+</p>
+
+<%= link_to 'Edit', edit_pair_path(@pair) %> |
+<%= link_to 'Back', pairs_path %>
