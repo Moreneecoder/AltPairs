@@ -3,7 +3,7 @@ class PairsController < ApplicationController
 
   # GET /pairs or /pairs.json
   def index
-    @pairs = Pair.all
+    @pairs = Pair.includes(:user).includes(:partner).all
   end
 
   # GET /pairs/1 or /pairs/1.json
@@ -55,6 +55,10 @@ class PairsController < ApplicationController
       format.html { redirect_to pairs_url, notice: "Pair was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def sort_pairing
+    @unpaired_users = User.where(paired: true).pluck(:id)
   end
 
   private
