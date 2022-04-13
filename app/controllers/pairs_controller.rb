@@ -12,6 +12,7 @@ class PairsController < ApplicationController
 
   # GET /pairs/new
   def new
+    sort_pairing
     @pair = Pair.new
   end
 
@@ -58,7 +59,23 @@ class PairsController < ApplicationController
   end
 
   def sort_pairing
-    @unpaired_users = User.where(paired: true).pluck(:id)
+    unpaired_user_ids = User.where(paired: false).pluck(:id).shuffle    
+
+    until unpaired_user_ids.length.zero?      
+      user =  User.find(unpaired_user_ids[0])
+      partner = User.find(unpaired_user_ids[1])
+
+      ActiveRecord::Base.transaction do
+        Pair.create!(user_id: user.id, partner_id: partner.id)
+
+        user.update!(paired: true)
+        partner.update!(paired: tue)
+      end
+
+      unpaired_user_ids.shift
+      unpaired_user_ids.shift
+    end
+    
   end
 
   private
