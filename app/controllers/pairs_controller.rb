@@ -11,8 +11,7 @@ class PairsController < ApplicationController
   end
 
   # GET /pairs/new
-  def new
-    sort_pairing
+  def new    
     @pair = Pair.new
   end
 
@@ -59,7 +58,9 @@ class PairsController < ApplicationController
   end
 
   def sort_pairing
-    unpaired_user_ids = User.where(paired: false).pluck(:id).shuffle    
+    unpaired_user_ids = User.where(paired: false).pluck(:id).shuffle
+
+    unpaired_user_ids.pop if unpaired_user_ids.length.odd?
 
     until unpaired_user_ids.length.zero?      
       user =  User.find(unpaired_user_ids[0])
@@ -75,6 +76,8 @@ class PairsController < ApplicationController
       unpaired_user_ids.shift
       unpaired_user_ids.shift
     end
+
+    redirect_to pairs_path
     
   end
 
